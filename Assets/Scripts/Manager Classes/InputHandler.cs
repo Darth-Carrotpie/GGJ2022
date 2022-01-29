@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour {
     public int playerID;
     public int inputID;
     PlayerInputs myInputs = null;
+    public bool gameStarted = false;
 
     public void Create(int _playerID, PlayerInputs _inputs) {
         playerID = _playerID;
@@ -19,10 +20,20 @@ public class InputHandler : MonoBehaviour {
         if (myInputs == null) {
             myInputs = InputsBucket.GetDefault();
         }
+        EventCoordinator.StartListening(EventName.System.StartGame(), OnStartGame);
+    }
+    void OnDestroy() {
+        EventCoordinator.StopListening(EventName.System.StartGame(), OnStartGame);
+    }
+    void OnStartGame(GameMessage msg) {
+        gameStarted = true;
     }
     void Update() {
+        if (Input.GetKeyDown(myInputs.fireball)) {
+            EventCoordinator.TriggerEvent(EventName.Input.Fireball(), GameMessage.Write().WithPlayerID(playerID));
+        }
+        if (!gameStarted)return;
         if (Input.GetKeyDown(myInputs.accelerate)) {
-            Debug.Log("accelerate: " + playerID);
             EventCoordinator.TriggerEvent(EventName.Input.Accelerate(), GameMessage.Write().WithContState(ContStateEnum.Start).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.accelerate)) {
@@ -48,10 +59,6 @@ public class InputHandler : MonoBehaviour {
         }
         if (Input.GetKeyDown(myInputs.hide)) {
             EventCoordinator.TriggerEvent(EventName.Input.ChangeHidden(), GameMessage.Write().WithPlayerID(playerID));
-        }
-        if (Input.GetKeyDown(myInputs.fireball)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Fireball(), GameMessage.Write().WithPlayerID(playerID));
-            Debug.Log("Fireball! by player: " + playerID);
         }
     }
 }

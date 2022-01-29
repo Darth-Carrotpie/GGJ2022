@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
 public class TurtleFactory : Singleton<TurtleFactory> {
     List<GameObject> turtles = new List<GameObject>();
     int currentPlayerID = 0;
@@ -18,7 +18,9 @@ public class TurtleFactory : Singleton<TurtleFactory> {
     void OnMatchStarted(GameMessage msg) {
         matchStarted = true;
     }
-
+    public static List<Transform> GetPlayerTurtles() {
+        return Instance.turtles.Where(x => x.GetComponent<Turtle>().playerType == PlayerTypeEnum.HumanPlayer).Select(x => x.transform).ToList();
+    }
     public static void AddTurtle(PlayerTypeEnum turtleType) {
         GameObject newTurtle = Instantiate(Instance.turtlePrefab);
         Instance.turtles.Add(newTurtle);
