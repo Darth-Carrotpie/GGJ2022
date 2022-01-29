@@ -41,6 +41,9 @@ public class TurtleFactory : Singleton<TurtleFactory> {
     public static void RemovePlayerTurtle() {
         RemoveTurtle(PlayerTypeEnum.HumanPlayer);
     }
+    public static int GetAITurtleCount() {
+        return Instance.turtles.Where(x => x.GetComponent<Turtle>().playerType == PlayerTypeEnum.AI).Select(x => x.transform).ToList().Count;
+    }
     public static void RemoveTurtle(PlayerTypeEnum turtleType) {
         for (int i = Instance.turtles.Count - 1; i >= 0; i--) {
             if (Instance.turtles[i].GetComponent<Turtle>().playerType == turtleType) {
@@ -71,9 +74,9 @@ public class TurtleFactory : Singleton<TurtleFactory> {
     }
     void RePositionTurtles() {
         if (matchStarted)return;
-        float angle = 1.5f / turtles.Count;
+        float angle = 2f / turtles.Count;
         for (int i = 0; i < turtles.Count; i++) {
-            turtles[i].transform.position = CalculateNewPosition(angle * i);
+            turtles[i].transform.position = CalculateNewPosition(angle * i - 1.5f);
             turtles[i].transform.LookAt(transform);
         }
     }

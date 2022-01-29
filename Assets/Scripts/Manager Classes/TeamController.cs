@@ -17,10 +17,6 @@ public class TeamController : MonoBehaviour {
         EventCoordinator.StopListening(EventName.Input.PlayerAmountSelected(), OnPlayerAmountSelected);
     }
 
-    void Update() {
-
-    }
-
     void CreateInitialTurtles() {
         for (int i = 0; i < AIAmount; i++) {
             TurtleFactory.AddTurtle(PlayerTypeEnum.AI);

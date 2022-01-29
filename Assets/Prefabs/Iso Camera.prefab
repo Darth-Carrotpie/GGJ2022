@@ -126,7 +126,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  offset: {x: 13, y: 9, z: 10}
+  offset: {x: 11, y: 9, z: 10}
   followTime: 0.5
   minZoom: 10
   maxZoom: 2

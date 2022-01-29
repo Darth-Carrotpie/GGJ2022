@@ -33,7 +33,7 @@ public class CameraFollowIso : MonoBehaviour {
         gameStarted = true;
     }
     void LateUpdate() {
-        if (!gameStarted)return;
+        if (!gameStarted || objectsToFollow.Count == 0)return;
         Vector3 pos = calculateCenter() + offset;
         transform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, followTime);
         float zoomCalculate = Mathf.Lerp(maxZoom, minZoom, zooming() / limit);
