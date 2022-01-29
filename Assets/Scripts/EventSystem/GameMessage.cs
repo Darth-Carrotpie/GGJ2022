@@ -57,7 +57,35 @@ public class GameMessage : BaseMessage {
         contStateEnumSet = true;
         return this;
     }
-    TurnSideEnum _turnSide;
+    Turtle _targetTurtle;
+    private bool targetTurtleSet;
+    public Turtle targetTurtle {
+        get {
+            if (targetTurtleSet)
+                return _targetTurtle;
+            else throw new Exception("No <_targetTurtle> was set before request for GameMessage: " + this);
+        }
+    }
+    public GameMessage WithTargetTurtle(Turtle value) {
+        _targetTurtle = value;
+        targetTurtleSet = true;
+        return this;
+    }
+    Turtle _sourceTurtle;
+    private bool sourceTurtleSet;
+    public Turtle sourceTurtle {
+        get {
+            if (sourceTurtleSet)
+                return _sourceTurtle;
+            else throw new Exception("No <_targetTurtle> was set before request for GameMessage: " + this);
+        }
+    }
+    public GameMessage WithSourceTurtle(Turtle value) {
+        _sourceTurtle = value;
+        sourceTurtleSet = true;
+        return this;
+    }
+    /*TurnSideEnum _turnSide;
     private bool turnSideSet;
     public TurnSideEnum turnSide {
         get {
@@ -70,7 +98,7 @@ public class GameMessage : BaseMessage {
         _turnSide = value;
         turnSideSet = true;
         return this;
-    }
+    }*/
     int _playerAmount;
     private bool playerAmountSet;
     public int playerAmount {
