@@ -9,4 +9,7 @@ public class InputsBucket : Singleton<InputsBucket> {
     public static PlayerInputs GetInputs(int playerID) {
         return Instance.inputs[playerID];
     }
+    public static PlayerInputs GetDefault() {
+        return Instance.inputs[0];
+    }
 }

@@ -14,7 +14,7 @@ public class GameMessage : BaseMessage {
         return new GameMessage();
     }
 
-    public Vector2 _coordinates;
+    Vector2 _coordinates;
     private bool coordinatesSet;
     public Vector2 coordinates {
         get {
@@ -29,13 +29,13 @@ public class GameMessage : BaseMessage {
         return this;
     }
 
-    public Transform _playerTransform;
+    Transform _playerTransform;
     private bool playerTransformSet;
     public Transform playerTransform {
         get {
             if (playerTransformSet)
                 return _playerTransform;
-            else throw new Exception("No <playerTransform> was set before request for GameMessage: " + this);
+            else throw new Exception("No <_playerTransform> was set before request for GameMessage: " + this);
         }
     }
     public GameMessage WithPlayerTransform(Transform value) {
@@ -43,7 +43,48 @@ public class GameMessage : BaseMessage {
         playerTransformSet = true;
         return this;
     }
-
+    ContStateEnum _contState;
+    private bool contStateEnumSet;
+    public ContStateEnum contState {
+        get {
+            if (contStateEnumSet)
+                return _contState;
+            else throw new Exception("No <_contState> was set before request for GameMessage: " + this);
+        }
+    }
+    public GameMessage WithContState(ContStateEnum value) {
+        _contState = value;
+        contStateEnumSet = true;
+        return this;
+    }
+    TurnSideEnum _turnSide;
+    private bool turnSideSet;
+    public TurnSideEnum turnSide {
+        get {
+            if (turnSideSet)
+                return _turnSide;
+            else throw new Exception("No <_turnSide> was set before request for GameMessage: " + this);
+        }
+    }
+    public GameMessage WithTurnSide(TurnSideEnum value) {
+        _turnSide = value;
+        turnSideSet = true;
+        return this;
+    }
+    int _playerAmount;
+    private bool playerAmountSet;
+    public int playerAmount {
+        get {
+            if (playerAmountSet)
+                return _playerAmount;
+            else throw new Exception("No <_turnSide> was set before request for GameMessage: " + this);
+        }
+    }
+    public GameMessage WithPlayerAmount(int value) {
+        _playerAmount = value;
+        playerAmountSet = true;
+        return this;
+    }
     //example to handle empty messages better
     /*private string _strMessage;
     public string strMessage {
