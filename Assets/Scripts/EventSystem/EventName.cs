@@ -50,8 +50,10 @@ public class EventName {
         public static List<string> Get() { return new List<string> { None() }; }
     }
     public class Environment {
-        public static string None() { return null; }
-        public static List<string> Get() { return new List<string> { None() }; }
+        public static string StartChurchDestruction() { return "Environment_StartChurchDestruction"; }
+        public static string ChurchCleanUp() { return "Environment_ChurchCleanUp"; }
+        public static List<string> Get() { return new List<string> { StartChurchDestruction(), ChurchCleanUp() }; }
+
     }
     public class System {
         public static string StartGame() { return "System_StartGame"; }

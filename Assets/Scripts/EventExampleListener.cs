@@ -14,6 +14,10 @@ public class EventExampleListener : MonoBehaviour {
     void OnStartLevel(GameMessage msg) {
         Debug.Log("coords on start: " + msg.coordinates);
     }
+    void OnStartChurchDestruction(GameMessage msg)
+    {
+        Debug.Log("testttt");
+    }
 
     void Update() {
 
