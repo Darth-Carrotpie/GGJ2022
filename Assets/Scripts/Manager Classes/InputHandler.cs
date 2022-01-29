@@ -5,17 +5,15 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour {
 
     public int playerID;
+    public int inputID;
     PlayerInputs myInputs = null;
-
-    public static string Accelerate() { return "Input_Accelerate"; }
-    public static string Decelerate() { return "Input_Decelerate"; }
-    public static string Turn() { return "Input_Turn"; }
-    public static string Hide() { return "Input_Hide"; }
-    public static string Fireball() { return "Input_Fireball"; }
 
     public void Create(int _playerID, PlayerInputs _inputs) {
         playerID = _playerID;
         myInputs = _inputs;
+    }
+    public void SetInputs(PlayerInputs inputs) {
+        myInputs = inputs;
     }
     void Awake() {
         if (myInputs == null) {
@@ -24,35 +22,36 @@ public class InputHandler : MonoBehaviour {
     }
     void Update() {
         if (Input.GetKeyDown(myInputs.accelerate)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Accelerate(), GameMessage.Write().WithContState(ContStateEnum.Start));
+            Debug.Log("accelerate: " + playerID);
+            EventCoordinator.TriggerEvent(EventName.Input.Accelerate(), GameMessage.Write().WithContState(ContStateEnum.Start).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.accelerate)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Accelerate(), GameMessage.Write().WithContState(ContStateEnum.Stop));
+            EventCoordinator.TriggerEvent(EventName.Input.Accelerate(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.decelerate)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Decelerate(), GameMessage.Write().WithContState(ContStateEnum.Start));
+            EventCoordinator.TriggerEvent(EventName.Input.Decelerate(), GameMessage.Write().WithContState(ContStateEnum.Start).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.decelerate)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Decelerate(), GameMessage.Write().WithContState(ContStateEnum.Stop));
+            EventCoordinator.TriggerEvent(EventName.Input.Decelerate(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.turnLeft)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Start).WithTurnSide(TurnSideEnum.Left));
+            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Start).WithTurnSide(TurnSideEnum.Left).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.turnLeft)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithTurnSide(TurnSideEnum.Left));
+            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithTurnSide(TurnSideEnum.Left).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.turnRight)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Start).WithTurnSide(TurnSideEnum.Right));
+            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Start).WithTurnSide(TurnSideEnum.Right).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.turnRight)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithTurnSide(TurnSideEnum.Right));
+            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithTurnSide(TurnSideEnum.Right).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.hide)) {
-            EventCoordinator.TriggerEvent(EventName.Input.ChangeHidden(), GameMessage.Write());
+            EventCoordinator.TriggerEvent(EventName.Input.ChangeHidden(), GameMessage.Write().WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.fireball)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Fireball(), GameMessage.Write());
-            Debug.Log("Fireball!");
+            EventCoordinator.TriggerEvent(EventName.Input.Fireball(), GameMessage.Write().WithPlayerID(playerID));
+            Debug.Log("Fireball! by player: " + playerID);
         }
     }
 }

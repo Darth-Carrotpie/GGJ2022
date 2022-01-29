@@ -8,6 +8,7 @@ public class TurtleFactory : Singleton<TurtleFactory> {
     public GameObject turtlePrefab;
     bool matchStarted = false;
     public float turtleStandRadius = 3.5f;
+    public GameObject inputHandlersObj;
     void Awake() {
         EventCoordinator.StartListening(EventName.Input.StartLevel(), OnMatchStarted);
     }
@@ -23,8 +24,10 @@ public class TurtleFactory : Singleton<TurtleFactory> {
         Instance.turtles.Add(newTurtle);
         newTurtle.GetComponent<Turtle>().playerID = Instance.currentPlayerID;
         newTurtle.transform.parent = Instance.transform;
-        if (turtleType == PlayerTypeEnum.HumanPlayer)
+        if (turtleType == PlayerTypeEnum.HumanPlayer) {
             newTurtle.GetComponent<Turtle>().SetPlayerToHuman();
+            InputFactory.CreateInputsForPlayer(Instance.currentPlayerID);
+        }
         Instance.RePositionTurtles();
         Instance.currentPlayerID++;
     }
@@ -37,8 +40,11 @@ public class TurtleFactory : Singleton<TurtleFactory> {
     public static void RemoveTurtle(PlayerTypeEnum turtleType) {
         for (int i = Instance.turtles.Count - 1; i >= 0; i--) {
             if (Instance.turtles[i].GetComponent<Turtle>().playerType == turtleType) {
+                int playerID = Instance.turtles[i].GetComponent<Turtle>().playerID;
+                InputFactory.DestroyInputsForPlayer(playerID);
                 Destroy(Instance.turtles[i]);
                 Instance.turtles.RemoveAt(i);
+                break;
             }
         }
         Instance.currentPlayerID--;
@@ -48,6 +54,7 @@ public class TurtleFactory : Singleton<TurtleFactory> {
     public static void RemoveTurtle(Turtle targetTurtle) {
         foreach (GameObject turtle in Instance.turtles) {
             if (turtle.GetComponent<Turtle>() == targetTurtle) {
+                InputFactory.DestroyInputsForPlayer(turtle.GetComponent<Turtle>().playerID);
                 Destroy(turtle);
             }
         }

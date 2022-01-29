@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7187514226229526855}
   - component: {fileID: 7187514226229526848}
+  - component: {fileID: 1080491769666857830}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: Untagged
@@ -44,4 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c64bafdbae45d4d93f2a584291169d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerType: 0
   turtleModelPrefab: {fileID: 1780184191589886927, guid: 0050e1d0f7137204f847ea6842072401, type: 3}
+  playerID: 0
+--- !u!114 &1080491769666857830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7187514226229526849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79347b5822e2aff4cbbb6c87d8e84918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
