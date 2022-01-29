@@ -32,6 +32,8 @@ public class TurtleFactory : Singleton<TurtleFactory> {
         }
         Instance.RePositionTurtles();
         Instance.currentPlayerID++;
+        newTurtle.gameObject.name = "Turtle-ID-" + Instance.currentPlayerID;
+        EventCoordinator.TriggerEvent(EventName.System.TurtleCreated(), GameMessage.Write().WithPlayerID(Instance.currentPlayerID));
     }
     public static void RemoveAITurtle() {
         RemoveTurtle(PlayerTypeEnum.AI);
@@ -46,11 +48,10 @@ public class TurtleFactory : Singleton<TurtleFactory> {
                 InputFactory.DestroyInputsForPlayer(playerID);
                 Destroy(Instance.turtles[i]);
                 Instance.turtles.RemoveAt(i);
+                Instance.PostRemoveActions(Instance.turtles[i].GetComponent<Turtle>());
                 break;
             }
         }
-        Instance.currentPlayerID--;
-        Instance.RePositionTurtles();
     }
 
     public static void RemoveTurtle(Turtle targetTurtle) {
@@ -58,12 +59,16 @@ public class TurtleFactory : Singleton<TurtleFactory> {
             if (turtle.GetComponent<Turtle>() == targetTurtle) {
                 InputFactory.DestroyInputsForPlayer(turtle.GetComponent<Turtle>().playerID);
                 Destroy(turtle);
+                Instance.PostRemoveActions(turtle.GetComponent<Turtle>());
+                break;
             }
         }
+    }
+    void PostRemoveActions(Turtle turtle) {
         Instance.currentPlayerID--;
         Instance.RePositionTurtles();
+        EventCoordinator.TriggerEvent(EventName.System.TurtleDestroyed(), GameMessage.Write().WithPlayerID(turtle.playerID));
     }
-
     void RePositionTurtles() {
         if (matchStarted)return;
         float angle = 1.5f / turtles.Count;

@@ -7,21 +7,30 @@ public class MovementController : MonoBehaviour {
     bool accelerating;
     bool decelerating;
     float turtleSpeed = 2f;
+    bool isHiding;
     void Start() {
         if (turtle == null)turtle = GetComponent<Turtle>();
         EventCoordinator.StartListening(EventName.Input.Accelerate(), OnAccelerate);
         EventCoordinator.StartListening(EventName.Input.Decelerate(), OnDecelerate);
         EventCoordinator.StartListening(EventName.System.StartGame(), OnStartGame);
+        EventCoordinator.StartListening(EventName.Input.ChangeHidden(), OnChangeHidden);
     }
     private void OnDestroy() {
         EventCoordinator.StopListening(EventName.Input.Accelerate(), OnAccelerate);
         EventCoordinator.StopListening(EventName.Input.Decelerate(), OnDecelerate);
         EventCoordinator.StopListening(EventName.System.StartGame(), OnStartGame);
+        EventCoordinator.StopListening(EventName.Input.ChangeHidden(), OnChangeHidden);
     }
     void OnStartGame(GameMessage msg) {
         GetComponent<Rigidbody>().isKinematic = false;
     }
+    void OnChangeHidden(GameMessage msg) {
+        if (turtle.playerID != msg.playerID)return;
+        isHiding = !isHiding;
+        accelerating = false;
+    }
     void OnAccelerate(GameMessage msg) {
+        if (isHiding)return;
         if (turtle.playerID == msg.playerID) {
             if (msg.contState == ContStateEnum.Start) {
                 accelerating = true;
@@ -32,6 +41,7 @@ public class MovementController : MonoBehaviour {
         }
     }
     void OnDecelerate(GameMessage msg) {
+        if (isHiding)return;
         if (turtle.playerID == msg.playerID) {
             if (msg.contState == ContStateEnum.Start) {
                 decelerating = true;

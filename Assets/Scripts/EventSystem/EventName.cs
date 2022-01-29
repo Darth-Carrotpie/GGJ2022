@@ -44,8 +44,10 @@ public class EventName {
         }
     }
     public class Player {
+        public static string Bump() { return "Player_Bump"; }
+        public static string PowerIncreased() { return "Player_PowerIncreased"; }
         public static string None() { return null; }
-        public static List<string> Get() { return new List<string> { None() }; }
+        public static List<string> Get() { return new List<string> { None(), Bump(), PowerIncreased() }; }
     }
     public class Economy {
         public static string None() { return null; }
@@ -59,7 +61,9 @@ public class EventName {
     }
     public class System {
         public static string StartGame() { return "System_StartGame"; }
-        public static List<string> Get() { return new List<string> { StartGame() }; }
+        public static string TurtleCreated() { return "System_TurtleCreated"; }
+        public static string TurtleDestroyed() { return "System_TurtleDestroyed"; }
+        public static List<string> Get() { return new List<string> { StartGame(), TurtleCreated(), TurtleDestroyed() }; }
     }
     public class AI {
         public static string None() { return null; }
