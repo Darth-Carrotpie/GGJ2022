@@ -85,6 +85,20 @@ public class GameMessage : BaseMessage {
         playerAmountSet = true;
         return this;
     }
+    int _playerID;
+    private bool playerIDSet;
+    public int playerID {
+        get {
+            if (playerIDSet)
+                return _playerID;
+            else throw new Exception("No <_turnSide> was set before request for GameMessage: " + this);
+        }
+    }
+    public GameMessage WithPlayerID(int value) {
+        _playerID = value;
+        playerIDSet = true;
+        return this;
+    }
     //example to handle empty messages better
     /*private string _strMessage;
     public string strMessage {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSelectionHandler : MonoBehaviour {
+public class PlayerUIHandler : MonoBehaviour {
     public void SelectOne() {
         EventCoordinator.TriggerEvent(EventName.Input.PlayerAmountSelected(), GameMessage.Write().WithPlayerAmount(1));
     }
@@ -14,5 +14,8 @@ public class PlayerSelectionHandler : MonoBehaviour {
     }
     public void SelectFour() {
         EventCoordinator.TriggerEvent(EventName.Input.PlayerAmountSelected(), GameMessage.Write().WithPlayerAmount(4));
+    }
+    public void StartGame() {
+        EventCoordinator.TriggerEvent(EventName.System.StartGame(), GameMessage.Write());
     }
 }

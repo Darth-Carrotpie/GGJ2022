@@ -13,11 +13,13 @@ public class Turtle : MonoBehaviour {
             return playerType == PlayerTypeEnum.AI;
         }
     }
+
     public bool IsHumanPlayer {
         get {
             return playerType == PlayerTypeEnum.HumanPlayer;
         }
     }
+
     public void SetPlayerToHuman() {
         playerType = PlayerTypeEnum.HumanPlayer;
     }
