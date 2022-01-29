@@ -10,13 +10,15 @@ public class TurtleModel : MonoBehaviour {
         if (turtle == null)turtle = GetComponentInParent<Turtle>();
         if (anim == null)anim = GetComponentInChildren<Animator>();
         EventCoordinator.StartListening(EventName.Input.Accelerate(), OnAccelerate);
-        EventCoordinator.StartListening(EventName.Input.Decelerate(), OnDecelerate);
+        EventCoordinator.StartListening(EventName.Input.TurnLeft(), OnTurn);
+        EventCoordinator.StartListening(EventName.Input.TurnRight(), OnTurn);
         EventCoordinator.StartListening(EventName.Player.HasHidden(), OnHasHidden);
         EventCoordinator.StartListening(EventName.Player.HasAppeared(), OnHasAppeared);
     }
     void OnDestroy() {
         EventCoordinator.StopListening(EventName.Input.Accelerate(), OnAccelerate);
-        EventCoordinator.StopListening(EventName.Input.Decelerate(), OnDecelerate);
+        EventCoordinator.StopListening(EventName.Input.TurnRight(), OnTurn);
+        EventCoordinator.StopListening(EventName.Input.TurnLeft(), OnTurn);
         EventCoordinator.StopListening(EventName.Player.HasHidden(), OnHasHidden);
         EventCoordinator.StopListening(EventName.Player.HasAppeared(), OnHasAppeared);
     }
@@ -41,13 +43,13 @@ public class TurtleModel : MonoBehaviour {
             anim.SetBool("Walking", false);
         }
     }
-    void OnDecelerate(GameMessage msg) {
+    void OnTurn(GameMessage msg) {
         if (isHiding || turtle.playerID != msg.playerID)return;
         if (msg.contState == ContStateEnum.Start) {
-            anim.SetBool("Walking", true);
+            anim.SetBool("Rotating", true);
         }
         if (msg.contState == ContStateEnum.Stop) {
-            anim.SetBool("Walking", false);
+            anim.SetBool("Rotating", false);
         }
     }
 }
