@@ -46,16 +46,16 @@ public class InputHandler : MonoBehaviour {
             EventCoordinator.TriggerEvent(EventName.Input.Decelerate(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.turnLeft)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Start).WithTurnSide(TurnSideEnum.Left).WithPlayerID(playerID));
+            EventCoordinator.TriggerEvent(EventName.Input.TurnLeft(), GameMessage.Write().WithContState(ContStateEnum.Start).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.turnLeft)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithTurnSide(TurnSideEnum.Left).WithPlayerID(playerID));
+            EventCoordinator.TriggerEvent(EventName.Input.TurnLeft(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.turnRight)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Start).WithTurnSide(TurnSideEnum.Right).WithPlayerID(playerID));
+            EventCoordinator.TriggerEvent(EventName.Input.TurnRight(), GameMessage.Write().WithContState(ContStateEnum.Start).WithPlayerID(playerID));
         }
         if (Input.GetKeyUp(myInputs.turnRight)) {
-            EventCoordinator.TriggerEvent(EventName.Input.Turn(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithTurnSide(TurnSideEnum.Right).WithPlayerID(playerID));
+            EventCoordinator.TriggerEvent(EventName.Input.TurnRight(), GameMessage.Write().WithContState(ContStateEnum.Stop).WithPlayerID(playerID));
         }
         if (Input.GetKeyDown(myInputs.hide)) {
             EventCoordinator.TriggerEvent(EventName.Input.ChangeHidden(), GameMessage.Write().WithPlayerID(playerID));

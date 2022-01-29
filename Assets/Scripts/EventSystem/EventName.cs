@@ -22,7 +22,8 @@ public class EventName {
         public static string PlayerAmountSelected() { return "Input_PlayerAmountSelected"; }
         public static string Accelerate() { return "Input_Accelerate"; }
         public static string Decelerate() { return "Input_Decelerate"; }
-        public static string Turn() { return "Input_Turn"; }
+        public static string TurnLeft() { return "Input_TurnLeft"; }
+        public static string TurnRight() { return "Input_TurnRight"; }
         public static string ChangeHidden() { return "Input_ChangeHidden"; }
         public static string Fireball() { return "Input_Fireball"; }
 
@@ -33,7 +34,8 @@ public class EventName {
                 PlayerAmountSelected(),
                 Accelerate(),
                 Decelerate(),
-                Turn(),
+                TurnLeft(),
+                TurnRight(),
                 ChangeHidden(),
                 Fireball(),
                 StartLevel(),
