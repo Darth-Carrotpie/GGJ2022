@@ -19,6 +19,5 @@ public class BumpPowerController : Singleton<BumpPowerController> {
         if (!Instance.power.ContainsKey(playerID))
             Instance.power[playerID] = 1f;
         return Instance.power[playerID];
-
     }
 }

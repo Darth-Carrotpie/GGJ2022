@@ -5,7 +5,7 @@ using UnityEngine;
 public class HideController : MonoBehaviour {
     Turtle turtle;
     float hideBoost = 4f;
-    bool isHiding;
+    public bool isHiding;
     void Start() {
         if (turtle == null)turtle = GetComponent<Turtle>();
         EventCoordinator.StartListening(EventName.Input.ChangeHidden(), OnChangeHidden);
@@ -19,8 +19,12 @@ public class HideController : MonoBehaviour {
     void OnChangeHidden(GameMessage msg) {
         if (turtle.playerID != msg.playerID)return;
         isHiding = !isHiding;
-        if (isHiding)
+        if (isHiding) {
             Boost(hideBoost);
+            EventCoordinator.TriggerEvent(EventName.Player.HasHidden(), msg);
+        } else {
+            EventCoordinator.TriggerEvent(EventName.Player.HasAppeared(), msg);
+        }
     }
     void Boost(float speed) {
         GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);

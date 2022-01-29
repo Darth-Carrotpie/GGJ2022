@@ -18,7 +18,7 @@ public class PlayerPanelController : MonoBehaviour {
     }
 
     void OnPowerChanged(GameMessage msg) {
-        text.text = BumpPowerController.GetPower(playerID) + "%";
+        text.text = BumpPowerController.GetPower(playerID) * 10f + "%";
     }
     void PanelRemove(GameMessage msg) {
         if (msg.playerID == playerID) {

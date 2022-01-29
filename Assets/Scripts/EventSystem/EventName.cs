@@ -44,10 +44,11 @@ public class EventName {
         }
     }
     public class Player {
+        public static string HasAppeared() { return "Player_HasAppeared"; }
+        public static string HasHidden() { return "Player_HasHidden"; }
         public static string Bump() { return "Player_Bump"; }
         public static string PowerIncreased() { return "Player_PowerIncreased"; }
-        public static string None() { return null; }
-        public static List<string> Get() { return new List<string> { None(), Bump(), PowerIncreased() }; }
+        public static List<string> Get() { return new List<string> { HasAppeared(), HasHidden(), Bump(), PowerIncreased() }; }
     }
     public class Economy {
         public static string None() { return null; }
