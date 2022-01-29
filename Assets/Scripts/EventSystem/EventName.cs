@@ -19,9 +19,25 @@ public class EventName {
         public static List<string> Get() { return new List<string> { None() }; }
     }
     public class Input {
+        public static string Accelerate() { return "Input_Accelerate"; }
+        public static string Decelerate() { return "Input_Decelerate"; }
+        public static string Turn() { return "Input_Turn"; }
+        public static string Hide() { return "Input_Hide"; }
+        public static string Fireball() { return "Input_Fireball"; }
+
         public static string StartLevel() { return "Input_StartLevel"; }
         public static string None() { return null; }
-        public static List<string> Get() { return new List<string> { None(), StartLevel() }; }
+        public static List<string> Get() {
+            return new List<string> {
+                None(),
+                StartLevel(),
+                Accelerate(),
+                Decelerate(),
+                Turn(),
+                Hide(),
+                Fireball()
+            };
+        }
     }
     public class Player {
         public static string None() { return null; }
