@@ -17,6 +17,7 @@ public class CameraFollowIso : MonoBehaviour {
 
     private Camera cam;
     Vector3 velocity;
+    bool gameStarted = false;
     void Start() {
         cam = GetComponent<Camera>();
         EventCoordinator.StartListening(EventName.System.StartGame(), OnStartGame);
@@ -28,17 +29,15 @@ public class CameraFollowIso : MonoBehaviour {
 
     void OnStartGame(GameMessage msg) {
         objectsToFollow = TurtleFactory.GetPlayerTurtles();
+        GetComponent<Camera>().enabled = true;
+        gameStarted = true;
     }
     void LateUpdate() {
-        if (objectsToFollow.Count < 1) {
-            //Debug.Log("Please insert atleast one Target to follow! in <" + this.GetType() + "> Script, on <" + gameObject.name + "> object.");
-            //Debug.Break();
-        } else {
-            Vector3 pos = calculateCenter() + offset;
-            transform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, followTime);
-            float zoomCalculate = Mathf.Lerp(maxZoom, minZoom, zooming() / limit);
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomCalculate, Time.deltaTime * zoomSpeed);
-        }
+        if (!gameStarted)return;
+        Vector3 pos = calculateCenter() + offset;
+        transform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, followTime);
+        float zoomCalculate = Mathf.Lerp(maxZoom, minZoom, zooming() / limit);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomCalculate, Time.deltaTime * zoomSpeed);
     }
 
     float zooming() {

@@ -44,11 +44,13 @@ public class MovementController : MonoBehaviour {
     void Update() {
         if (accelerating) {
             decelerating = false;
-            ChangeSpeed(turtleSpeed);
+            Vector3 velocity = GetComponent<Rigidbody>().velocity;
+            if (velocity.magnitude < 2f)
+                ChangeSpeed(turtleSpeed);
         }
         if (decelerating) {
             accelerating = false;
-            ChangeSpeed(-turtleSpeed * 2);
+            Decelerate();
         }
     }
 
@@ -56,4 +58,8 @@ public class MovementController : MonoBehaviour {
         GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Acceleration);
     }
 
+    void Decelerate() {
+        Vector3 velocity = GetComponent<Rigidbody>().velocity;
+        velocity = velocity / 1.05f;
+    }
 }
