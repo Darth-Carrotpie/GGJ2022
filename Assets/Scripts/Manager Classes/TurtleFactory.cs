@@ -50,8 +50,8 @@ public class TurtleFactory : Singleton<TurtleFactory> {
                 int playerID = Instance.turtles[i].GetComponent<Turtle>().playerID;
                 InputFactory.DestroyInputsForPlayer(playerID);
                 Destroy(Instance.turtles[i].gameObject);
-                Instance.turtles.RemoveAt(i);
                 Instance.PostRemoveActions(Instance.turtles[i].GetComponent<Turtle>());
+                Instance.turtles.RemoveAt(i);
                 break;
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CinematicsController : MonoBehaviour {
     float timer;
     float timeForDestruction = 0.5f;
-    float timeForCleanup = 5f;
+    float timeForCleanup = 4f;
 
     bool gameStarted;
     bool triggered;

@@ -1,8 +1,7 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class RFX4_CameraShake : MonoBehaviour
-{
+public class RFX4_CameraShake : MonoBehaviour {
     public AnimationCurve ShakeCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
     public float Duration = 2;
     public float Speed = 22;
@@ -15,34 +14,22 @@ public class RFX4_CameraShake : MonoBehaviour
     [HideInInspector]
     public bool canUpdate;
 
-    void PlayShake()
-    {
+    public void PlayShake() {
         StopAllCoroutines();
         StartCoroutine(Shake());
     }
 
-    void Update()
-    {
-        if (isPlaying && IsEnabled) {
-            isPlaying = false;
-            PlayShake();
-        }
-    }
-
-    void OnEnable()
-    {
+    void OnEnable() {
         isPlaying = true;
-        var shakes = FindObjectsOfType(typeof(RFX4_CameraShake)) as RFX4_CameraShake[];
-        if(shakes!=null)
-        foreach (var shake in shakes)
-        {
-            shake.canUpdate = false;
-        }
+        var shakes = FindObjectsOfType(typeof(RFX4_CameraShake))as RFX4_CameraShake[];
+        if (shakes != null)
+            foreach (var shake in shakes) {
+                shake.canUpdate = false;
+            }
         canUpdate = true;
     }
 
-    IEnumerator Shake()
-    {
+    IEnumerator Shake() {
         var elapsed = 0.0f;
         var camT = Camera.main.transform;
         var originalCamRotation = camT.rotation.eulerAngles;
@@ -56,14 +43,14 @@ public class RFX4_CameraShake : MonoBehaviour
             var percentComplete = elapsed / Duration;
             var damper = ShakeCurve.Evaluate(percentComplete) * distanceDamper;
             time += Time.deltaTime * damper;
-            camT.position -= direction * Time.deltaTime * Mathf.Sin(time * Speed) * damper * Magnitude/2;
+            camT.position -= direction * Time.deltaTime * Mathf.Sin(time * Speed) * damper * Magnitude / 2;
 
             var alpha = randomStart + Speed * percentComplete / 10;
             var x = Mathf.PerlinNoise(alpha, 0.0f) * 2.0f - 1.0f;
             var y = Mathf.PerlinNoise(1000 + alpha, alpha + 1000) * 2.0f - 1.0f;
             var z = Mathf.PerlinNoise(0.0f, alpha) * 2.0f - 1.0f;
 
-            if (Quaternion.Euler(originalCamRotation + oldRotation)!=camT.rotation)
+            if (Quaternion.Euler(originalCamRotation + oldRotation) != camT.rotation)
                 originalCamRotation = camT.rotation.eulerAngles;
             oldRotation = Mathf.Sin(time * Speed) * damper * Magnitude * new Vector3(0.5f + y, 0.3f + x, 0.3f + z) * RotationDamper;
             camT.rotation = Quaternion.Euler(originalCamRotation + oldRotation);
