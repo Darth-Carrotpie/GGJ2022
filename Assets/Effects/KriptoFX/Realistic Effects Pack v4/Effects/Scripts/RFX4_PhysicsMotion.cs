@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class RFX4_PhysicsMotion : MonoBehaviour
 {
-    public bool UseCollisionDetect = true;
+    public bool UseCollisionDetect = false;
     public float MaxDistnace = -1;
     public float Mass = 1;
     public float Speed = 10;
@@ -21,7 +21,7 @@ public class RFX4_PhysicsMotion : MonoBehaviour
 
     public bool UseTargetPositionAfterCollision;
     public GameObject EffectOnCollision;
-    public bool CollisionEffectInWorldSpace = true;
+    public bool CollisionEffectInWorldSpace = false;
     public bool LookAtNormal = true;
     public float CollisionEffectDestroyAfter = 5;
 
@@ -83,6 +83,7 @@ public class RFX4_PhysicsMotion : MonoBehaviour
         isInitializedForce = true;
     }
 
+    /*
     void OnCollisionEnter(Collision collision)
     {
         if (isCollided && !effectSettings.UseCollisionDetection) return;
@@ -139,7 +140,7 @@ public class RFX4_PhysicsMotion : MonoBehaviour
         if (collid != null) Destroy(collid);
     }
 
-
+    */
 
     private void FixedUpdate()
     {
