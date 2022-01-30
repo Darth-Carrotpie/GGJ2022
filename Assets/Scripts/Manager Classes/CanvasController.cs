@@ -25,9 +25,11 @@ public class CanvasController : MonoBehaviour {
     }
 
     void OnPlayerCreate(GameMessage msg) {
-        GameObject newPanel = Instantiate(playerPanelPrefab);
-        newPanel.transform.parent = gameplayPanel.transform;
-        newPanel.GetComponent<PlayerPanelController>().playerID = msg.playerID;
+        if (msg.playerID > 10) {
+            GameObject newPanel = Instantiate(playerPanelPrefab);
+            newPanel.transform.parent = gameplayPanel.transform;
+            newPanel.GetComponent<PlayerPanelController>().playerID = msg.playerID;
+        }
     }
     void OnEnd(GameMessage msg) {
         endGamePanel.SetActive(true);

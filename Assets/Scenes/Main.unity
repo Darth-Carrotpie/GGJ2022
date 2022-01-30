@@ -975,6 +975,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: table with different materials
       objectReference: {fileID: 0}
+    - target: {fileID: 7142945512690036635, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142945512690036635, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142945512690036635, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142945512690036635, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.235
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142945512690036635, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.278
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
 --- !u!1 &479865534
@@ -1557,7 +1577,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.4
+  m_fontSize: 31.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2815,6 +2835,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408440683}
   m_CullTransparentMesh: 1
+--- !u!1 &1454658362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7142945512690036612, guid: 64bd6f622233ed042a41e02124f47cf2, type: 3}
+  m_PrefabInstance: {fileID: 457885542}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1454658367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454658362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1b1a46a8849843ba09f72cfc9bc59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starCol: {r: 0.6117647, g: 0.12941177, b: 0.38431373, a: 1}
+  endCol: {r: 0.36862746, g: 0.15686275, b: 0.27058825, a: 1}
+  xplodeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1456447927
 GameObject:
   m_ObjectHideFlags: 0
