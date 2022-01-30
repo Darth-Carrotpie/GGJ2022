@@ -35,7 +35,7 @@ public class TurtleModel : MonoBehaviour {
     }
 
     void OnAccelerate(GameMessage msg) {
-        if (isHiding || turtle.playerID != msg.playerID)return;
+        if (turtle.playerID != msg.playerID)return;
         if (msg.contState == ContStateEnum.Start) {
             anim.SetBool("Walking", true);
         }

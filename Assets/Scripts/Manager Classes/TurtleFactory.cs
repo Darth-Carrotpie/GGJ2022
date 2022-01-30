@@ -49,7 +49,7 @@ public class TurtleFactory : Singleton<TurtleFactory> {
             if (Instance.turtles[i].GetComponent<Turtle>().playerType == turtleType) {
                 int playerID = Instance.turtles[i].GetComponent<Turtle>().playerID;
                 InputFactory.DestroyInputsForPlayer(playerID);
-                Destroy(Instance.turtles[i]);
+                Destroy(Instance.turtles[i].gameObject);
                 Instance.turtles.RemoveAt(i);
                 Instance.PostRemoveActions(Instance.turtles[i].GetComponent<Turtle>());
                 break;
@@ -57,12 +57,13 @@ public class TurtleFactory : Singleton<TurtleFactory> {
         }
     }
 
-    public static void RemoveTurtle(Turtle targetTurtle) {
+    public static void KillTurtle(Turtle targetTurtle) {
         foreach (GameObject turtle in Instance.turtles) {
             if (turtle.GetComponent<Turtle>() == targetTurtle) {
                 InputFactory.DestroyInputsForPlayer(turtle.GetComponent<Turtle>().playerID);
-                Destroy(turtle);
-                Instance.PostRemoveActions(turtle.GetComponent<Turtle>());
+                Instance.turtles.Remove(turtle);
+                Destroy(turtle.gameObject);
+                EventCoordinator.TriggerEvent(EventName.System.TurtleDestroyed(), GameMessage.Write().WithPlayerID(turtle.GetComponent<Turtle>().playerID));
                 break;
             }
         }
