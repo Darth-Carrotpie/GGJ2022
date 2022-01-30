@@ -18,7 +18,7 @@ public class TurtleFireballShoot : MonoBehaviour {
         if (turtle.playerID != msg.playerID) return;
     }
 
-    void Shoot(GameMessage msg) {
+   void Shoot(GameMessage msg) {
         if (turtle.playerID == msg.playerID)
         {
             GameObject fx = Instantiate(effect, source.position, source.rotation);
