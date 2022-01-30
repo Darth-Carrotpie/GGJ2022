@@ -13,13 +13,13 @@ public class PlayerCenterCalc : MonoBehaviour {
     float timer;
     Vector3 targetVec;
     void Start() {
-        EventCoordinator.StartListening(EventName.System.StartGame(), OnStartGame);
+        EventCoordinator.StartListening(EventName.Environment.ChurchCleanUp(), OnChurchCleanUp);
         EventCoordinator.StartListening(EventName.System.PlayerDeath(), OnDeath);
         EventCoordinator.StartListening(EventName.System.GameEnd(), OnEndGame);
     }
 
     void OnDestroy() {
-        EventCoordinator.StopListening(EventName.System.StartGame(), OnStartGame);
+        EventCoordinator.StopListening(EventName.Environment.ChurchCleanUp(), OnChurchCleanUp);
         EventCoordinator.StopListening(EventName.System.PlayerDeath(), OnDeath);
         EventCoordinator.StopListening(EventName.System.GameEnd(), OnEndGame);
     }
@@ -31,7 +31,7 @@ public class PlayerCenterCalc : MonoBehaviour {
         gameEnded = true;
     }
 
-    void OnStartGame(GameMessage msg) {
+    void OnChurchCleanUp(GameMessage msg) {
         objectsToFollow = TurtleFactory.GetPlayerTurtles();
         GetComponentInChildren<Camera>().enabled = true;
         gameStarted = true;

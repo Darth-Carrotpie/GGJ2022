@@ -77,7 +77,7 @@ public class TurtleFactory : Singleton<TurtleFactory> {
         if (matchStarted)return;
         float angle = 2f / turtles.Count;
         for (int i = 0; i < turtles.Count; i++) {
-            turtles[i].transform.position = CalculateNewPosition(angle * i - 1.5f);
+            turtles[i].transform.localPosition = CalculateNewPosition(angle * i - 1.5f);
             turtles[i].transform.LookAt(transform);
         }
     }
