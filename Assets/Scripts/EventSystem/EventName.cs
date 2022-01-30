@@ -61,10 +61,12 @@ public class EventName {
 
     }
     public class System {
+        public static string GameEnd() { return "System_GameEnd"; }
+        public static string PlayerDeath() { return "System_PlayerDeath"; }
         public static string StartGame() { return "System_StartGame"; }
         public static string TurtleCreated() { return "System_TurtleCreated"; }
         public static string TurtleDestroyed() { return "System_TurtleDestroyed"; }
-        public static List<string> Get() { return new List<string> { StartGame(), TurtleCreated(), TurtleDestroyed() }; }
+        public static List<string> Get() { return new List<string> { GameEnd(), PlayerDeath(), StartGame(), TurtleCreated(), TurtleDestroyed() }; }
     }
     public class AI {
         public static string None() { return null; }

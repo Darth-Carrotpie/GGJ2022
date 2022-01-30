@@ -17,6 +17,7 @@ public class BumpHandler : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.GetComponent<Turtle>() == null)return;
         if (collision.relativeVelocity.magnitude > 2) {
             Vector3 theirVelocity = collision.rigidbody.velocity;
             Vector3 myVelocity = GetComponent<Rigidbody>().velocity;
