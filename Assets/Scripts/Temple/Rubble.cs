@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rubble : MonoBehaviour {
+public class Rubble : MonoBehaviour
+{
     Mesh mesh = null;
     float volume;
 
-    void Start() {
+    bool StartShrinking = false;
+
+    void Start()
+    {
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         if (meshFilter != null)
             mesh = meshFilter.sharedMesh;
@@ -15,22 +19,27 @@ public class Rubble : MonoBehaviour {
         EventCoordinator.StartListening(EventName.Environment.ChurchCleanUp(), OnChurchCleanUp);
         string msg = "The volume of the mesh is " + volume + " cube units.";
     }
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         EventCoordinator.StopListening(EventName.Environment.ChurchCleanUp(), OnChurchCleanUp);
     }
-    public bool IsMiniature() {
+    public bool IsMiniature()
+    {
         return volume < 0.01f;
     }
-    public bool IsKinematic() {
+    public bool IsKinematic()
+    {
         return GetComponent<Rigidbody>().isKinematic;
     }
-    public float VolumeOfMesh(Mesh mesh) {
+    public float VolumeOfMesh(Mesh mesh)
+    {
         float volume = 0;
 
         Vector3[] vertices = mesh.vertices;
         int[] triangles = mesh.triangles;
 
-        for (int i = 0; i < triangles.Length; i += 3) {
+        for (int i = 0; i < triangles.Length; i += 3)
+        {
             Vector3 p1 = vertices[triangles[i + 0]];
             Vector3 p2 = vertices[triangles[i + 1]];
             Vector3 p3 = vertices[triangles[i + 2]];
@@ -38,7 +47,8 @@ public class Rubble : MonoBehaviour {
         }
         return Mathf.Abs(volume);
     }
-    float SignedVolumeOfTriangle(Vector3 p1, Vector3 p2, Vector3 p3) {
+    float SignedVolumeOfTriangle(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
         float v321 = p3.x * p2.y * p1.z;
         float v231 = p2.x * p3.y * p1.z;
         float v312 = p3.x * p1.y * p2.z;
@@ -50,20 +60,32 @@ public class Rubble : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-
+    void Update()
+    {
+        if (StartShrinking)
+        {
+            transform.localScale -= new Vector3(2.5f, 2.5f, 2.5f) * Time.deltaTime;
+            if (transform.localScale.x < 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
-    void OnChurchCleanUp(GameMessage msg) {
+    void OnChurchCleanUp(GameMessage msg)
+    {
         StartCoroutine(ChurchCleanUp());
     }
-    IEnumerator ChurchCleanUp() {
+    IEnumerator ChurchCleanUp()
+    {
         float time = Random.RandomRange(0f, 5f);
         yield return new WaitForSeconds(time);
         float rngRubble = Random.RandomRange(0f, 1f);
         if (rngRubble > 0.2f)
-            Destroy(gameObject);
-        else {
-            if (volume > 0.1f) {
+            StartShrinking = true;
+        else
+        {
+            if (volume > 0.1f)
+            {
                 GetComponent<Rigidbody>().isKinematic = true;
             }
         }
