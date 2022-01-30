@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDeathHandler : MonoBehaviour {
-    int playerAmount;
+    int playerAmount = 1;
     bool gameStarted;
     void Start() {
         EventCoordinator.StartListening(EventName.System.PlayerDeath(), OnDeath);
@@ -16,14 +16,17 @@ public class PlayerDeathHandler : MonoBehaviour {
         EventCoordinator.StopListening(EventName.Input.PlayerAmountSelected(), OnPlayerAmountSelected);
     }
     void OnDeath(GameMessage msg) {
-        if (gameStarted)
-            if (msg.sourceTurtle.IsHumanPlayer)
-                TurtleFactory.RemoveTurtle(msg.sourceTurtle);
+        if (!gameStarted)return;
+        if (msg.sourceTurtle.IsHumanPlayer)
+            playerAmount--;
+        TurtleFactory.KillTurtle(msg.sourceTurtle);
         if (playerAmount == 0) {
+            Debug.Log("playerAmount = 0");
             EventCoordinator.TriggerEvent(EventName.System.GameEnd(), GameMessage.Write().WithSourceTurtle(null));
         }
         if (playerAmount == 1) {
             if (TurtleFactory.GetAITurtleCount() == 0) {
+                Debug.Log("GetAITurtleCount amount = 0");
                 Turtle turtle = TurtleFactory.GetPlayerTurtles()[0].GetComponent<Turtle>();
                 EventCoordinator.TriggerEvent(EventName.System.GameEnd(), GameMessage.Write().WithSourceTurtle(turtle));
             }
