@@ -13,7 +13,15 @@ public class TurtleFireballShoot : MonoBehaviour {
         EventCoordinator.StartListening(EventName.Input.Fireball(), Shoot);
     }
 
+    void OnChangeHidden(GameMessage msg)
+    {
+        if (turtle.playerID != msg.playerID) return;
+    }
+
     void Shoot(GameMessage msg) {
-        GameObject fx = Instantiate(effect, source.position, source.rotation);
+        if (turtle.playerID == msg.playerID)
+        {
+            GameObject fx = Instantiate(effect, source.position, source.rotation);
+        }
     }
 }
